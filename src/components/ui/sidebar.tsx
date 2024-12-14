@@ -420,6 +420,7 @@ const SidebarGroupLabel = React.forwardRef<
 
   return (
     <Comp
+      // @ts-ignore
       ref={ref}
       data-sidebar='group-label'
       className={cn(
@@ -431,6 +432,7 @@ const SidebarGroupLabel = React.forwardRef<
     />
   );
 });
+
 SidebarGroupLabel.displayName = 'SidebarGroupLabel';
 
 const SidebarGroupAction = React.forwardRef<
@@ -441,6 +443,7 @@ const SidebarGroupAction = React.forwardRef<
 
   return (
     <Comp
+      // @ts-ignore
       ref={ref}
       data-sidebar='group-action'
       className={cn(
@@ -584,6 +587,7 @@ const SidebarMenuAction = React.forwardRef<
 
   return (
     <Comp
+      // @ts-ignore
       ref={ref}
       data-sidebar='menu-action'
       className={cn(
