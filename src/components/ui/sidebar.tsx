@@ -542,6 +542,7 @@ const SidebarMenuButton = React.forwardRef<
 
     const button = (
       <Comp
+        // @ts-ignore
         ref={ref}
         data-sidebar='menu-button'
         data-size={size}
@@ -694,6 +695,7 @@ const SidebarMenuSubButton = React.forwardRef<
 
   return (
     <Comp
+      // @ts-ignore
       ref={ref}
       data-sidebar='menu-sub-button'
       data-size={size}
