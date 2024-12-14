@@ -1,0 +1,39 @@
+name: Run the build and tests, and create a pull request
+
+on:
+  push:
+    branches:
+      - '*'
+      - '!main'
+
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build
+        run: echo "Build"
+
+      - name: Test
+        run: echo "Test"
+
+  create_pull_request:
+    needs: [build_and_test]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check and Create Pull Request
+        env:
+          GH_TOKEN: ${{ secrets.ACTIONS_TOKEN }}
+        run: |
+          PR_COUNT=$(gh pr list --head "${{ github.ref_name }}" --json number --jq '. | length')
+          if [[ $PR_COUNT == 0 ]]; then
+            gh pr create \
+              -B main \
+              -t "${{ github.event.head_commit.message }}" \
+              -a "${{ github.actor }}"  \
+              -F ./.github/workflows/PR_template.md
+          else
+            echo "PR already exists."
+          fi
