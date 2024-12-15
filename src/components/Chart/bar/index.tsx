@@ -52,7 +52,7 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-export function Browser() {
+export function BarGraph() {
   return (
     <Card>
       <CardHeader>
