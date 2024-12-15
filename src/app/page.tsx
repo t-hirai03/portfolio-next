@@ -1,4 +1,4 @@
-import { Browser } from '@/components/Chart/browser';
+import { BarGraph } from '@/components/Chart/bar';
 import { LineGraph } from '@/components/Chart/line';
 import { View } from '@/components/Chart/view';
 import {
@@ -65,13 +65,13 @@ export default function Home() {
           <View />
         </div>
         <div className='rounded-xl bg-muted/50'>
-          <Browser />
+          <BarGraph />
         </div>
         <div className='rounded-xl bg-muted/50'>
           <LineGraph />
         </div>
       </div>
-      <div className='min-h-[100vh] flex-1 rounded-xl md:min-h-0'>
+      <div className='min-h-[100vh] flex-1 rounded-xl border p-4 md:min-h-0'>
         <Table>
           <TableHeader>
             <TableRow>
