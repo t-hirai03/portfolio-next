@@ -1,4 +1,5 @@
 import { Browser } from '@/components/Chart/browser';
+import { LineGraph } from '@/components/Chart/line';
 import { View } from '@/components/Chart/view';
 import {
   Table,
@@ -66,7 +67,9 @@ export default function Home() {
         <div className='rounded-xl bg-muted/50'>
           <Browser />
         </div>
-        <div className='aspect-video rounded-xl bg-muted/50' />
+        <div className='rounded-xl bg-muted/50'>
+          <LineGraph />
+        </div>
       </div>
       <div className='min-h-[100vh] flex-1 rounded-xl md:min-h-0'>
         <Table>
