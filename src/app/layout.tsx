@@ -3,7 +3,6 @@ import './globals.css';
 
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
-import Head from 'next/head';
 
 import { AppSidebar } from '@/components/app-sidebar';
 import Header from '@/components/Header';
@@ -34,7 +33,7 @@ export default function RootLayout({
 }>): JSX.Element {
   return (
     <html lang='ja' suppressHydrationWarning>
-      <Head>
+      <head>
         {/* Google Tag Manager */}
         <script
           dangerouslySetInnerHTML={{
@@ -50,7 +49,7 @@ export default function RootLayout({
           }}
         />
         {/* End Google Tag Manager */}
-      </Head>
+      </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         {/* Google Tag Manager (noscript) */}
         <noscript>
