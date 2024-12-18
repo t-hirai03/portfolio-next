@@ -3,13 +3,13 @@ import './globals.css';
 
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
+import { getServerSession } from 'next-auth/next';
 
 import { AppSidebar } from '@/components/app-sidebar';
 import Header from '@/components/Header';
 import { NextAuthProvider } from '@/components/SessionProvider';
 import { ThemeProvider } from '@/components/theme-provider';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
-import { getServerSession } from 'next-auth/next';
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',

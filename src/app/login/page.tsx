@@ -1,10 +1,10 @@
 'use client';
 
+import { signIn } from 'next-auth/react';
+
 import { Icons } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-
-import { signIn } from 'next-auth/react';
 
 export default function LoginPage() {
   return (
@@ -18,11 +18,11 @@ export default function LoginPage() {
         </CardHeader>
         <CardContent className='grid gap-4'>
           <Button variant='outline' className='w-full' onClick={() => signIn('github')}>
-            <Icons.gitHub className='mr-2 h-4 w-4' />
+            <Icons.GitHub className='mr-2 h-4 w-4' />
             GitHubでログイン
           </Button>
           <Button variant='outline' className='w-full' onClick={() => signIn('google')}>
-            <Icons.google className='mr-2 h-4 w-4' />
+            <Icons.Google className='mr-2 h-4 w-4' />
             Googleでログイン
           </Button>
         </CardContent>
