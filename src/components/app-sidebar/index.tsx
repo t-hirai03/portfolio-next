@@ -12,6 +12,7 @@ import {
   Settings2,
   SquareTerminal,
 } from 'lucide-react';
+import { useSession } from 'next-auth/react';
 import * as React from 'react';
 
 import { NavMain } from '@/components/nav-main';
@@ -31,7 +32,7 @@ const data = {
   user: {
     name: 'shadcn',
     email: 'm@example.com',
-    avatar: '/avatars/shadcn.jpg',
+    avatar: '/globe.svg',
   },
   teams: [
     {
@@ -157,6 +158,9 @@ const data = {
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const { data: session, status } = useSession();
+  console.log('status', status);
+
   return (
     <Sidebar collapsible='icon' {...props}>
       <SidebarHeader>

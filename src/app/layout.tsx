@@ -6,7 +6,7 @@ import localFont from 'next/font/local';
 
 import { AppSidebar } from '@/components/app-sidebar';
 import Header from '@/components/Header';
-import SessionProvider from '@/components/SessionProvider';
+import { NextAuthProvider } from '@/components/SessionProvider';
 import { ThemeProvider } from '@/components/theme-provider';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 import { getServerSession } from 'next-auth/next';
@@ -55,7 +55,7 @@ export default function RootLayout({
         {/* End Google Tag Manager */}
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <SessionProvider session={session}>
+        <NextAuthProvider session={session}>
           {/* Google Tag Manager (noscript) */}
           <noscript>
             <iframe
@@ -80,7 +80,7 @@ export default function RootLayout({
               </SidebarInset>
             </SidebarProvider>
           </ThemeProvider>
-        </SessionProvider>
+        </NextAuthProvider>
       </body>
     </html>
   );
