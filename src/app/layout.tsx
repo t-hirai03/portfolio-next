@@ -3,7 +3,6 @@ import './globals.css';
 
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
-import { getServerSession } from 'next-auth/next';
 
 import { AppSidebar } from '@/components/app-sidebar';
 import Header from '@/components/Header';
@@ -33,8 +32,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>): JSX.Element {
-  const session = getServerSession();
-
   return (
     <html lang='ja' suppressHydrationWarning>
       <head>
@@ -55,7 +52,7 @@ export default function RootLayout({
         {/* End Google Tag Manager */}
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <NextAuthProvider session={session}>
+        <NextAuthProvider>
           {/* Google Tag Manager (noscript) */}
           <noscript>
             <iframe
