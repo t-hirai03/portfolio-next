@@ -6,6 +6,7 @@ import localFont from 'next/font/local';
 
 import { AppSidebar } from '@/components/app-sidebar';
 import Header from '@/components/Header';
+import { NextAuthProvider } from '@/components/SessionProvider';
 import { ThemeProvider } from '@/components/theme-provider';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 
@@ -51,30 +52,32 @@ export default function RootLayout({
         {/* End Google Tag Manager */}
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        {/* Google Tag Manager (noscript) */}
-        <noscript>
-          <iframe
-            src='https://www.googletagmanager.com/ns.html?id=GTM-5J97NNRK'
-            height='0'
-            width='0'
-            style={{ display: 'none', visibility: 'hidden' }}
-          />
-        </noscript>
-        {/* End Google Tag Manager (noscript) */}
-        <ThemeProvider
-          attribute='class'
-          defaultTheme='system'
-          enableSystem
-          disableTransitionOnChange
-        >
-          <SidebarProvider>
-            <AppSidebar />
-            <SidebarInset>
-              <Header />
-              {children}
-            </SidebarInset>
-          </SidebarProvider>
-        </ThemeProvider>
+        <NextAuthProvider>
+          {/* Google Tag Manager (noscript) */}
+          <noscript>
+            <iframe
+              src='https://www.googletagmanager.com/ns.html?id=GTM-5J97NNRK'
+              height='0'
+              width='0'
+              style={{ display: 'none', visibility: 'hidden' }}
+            />
+          </noscript>
+          {/* End Google Tag Manager (noscript) */}
+          <ThemeProvider
+            attribute='class'
+            defaultTheme='system'
+            enableSystem
+            disableTransitionOnChange
+          >
+            <SidebarProvider>
+              <AppSidebar />
+              <SidebarInset>
+                <Header />
+                <main className='p-4 custom-min-height'>{children}</main>
+              </SidebarInset>
+            </SidebarProvider>
+          </ThemeProvider>
+        </NextAuthProvider>
       </body>
     </html>
   );
