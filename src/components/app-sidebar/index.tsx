@@ -1,7 +1,6 @@
 'use client';
 
 import { AudioWaveform, Command, GalleryVerticalEnd, SquareTerminal } from 'lucide-react';
-import { useSession } from 'next-auth/react';
 import * as React from 'react';
 
 import { NavMain } from '@/components/nav-main';
@@ -81,9 +80,6 @@ const data = {
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const { data: session, status } = useSession();
-  console.log('status', status);
-
   return (
     <Sidebar collapsible='icon' {...props}>
       <SidebarHeader>
@@ -94,7 +90,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         {/* <NavProjects projects={data.projects} /> */}
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
