@@ -1,17 +1,9 @@
 'use client';
 
-import { TrendingUp } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Bar, BarChart, XAxis, YAxis } from 'recharts';
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   ChartConfig,
   ChartContainer,
@@ -22,7 +14,7 @@ import {
 // 型定義 (APIデータ)
 type ApiDataItem = {
   browser: string;
-  screenPageViews: string; // `visitors` を `screenPageViews` に変更
+  screenPageViews: string;
   fill: string;
 };
 
@@ -50,7 +42,7 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-export function BarGraph() {
+export function BarGraph(): JSX.Element {
   const [data, setData] = useState<ApiDataItem[]>([]);
 
   useEffect(() => {
@@ -68,8 +60,8 @@ export function BarGraph() {
         // データ変換処理
         const chartData = responseData.map((item) => ({
           browser: item.browser,
-          screenPageViews: item.screenPageViews, // `visitors` を `screenPageViews` に変更
-          fill: chartConfig[item.browser as keyof typeof chartConfig]?.color || 'gray', // 色設定
+          screenPageViews: item.screenPageViews,
+          fill: chartConfig[item.browser as keyof typeof chartConfig]?.color || 'gray',
         }));
 
         setData(chartData);
@@ -105,26 +97,12 @@ export function BarGraph() {
               axisLine={false}
               tickFormatter={(value) => chartConfig[value as keyof typeof chartConfig]?.label}
             />
-            <XAxis dataKey='screenPageViews' type='number' hide />{' '}
-            {/* `visitors` を `screenPageViews` に変更 */}
+            <XAxis dataKey='screenPageViews' type='number' hide />
             <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
-            <Bar
-              dataKey='screenPageViews' // `visitors` を `screenPageViews` に変更
-              layout='vertical'
-              radius={5}
-              fill={(entry) => entry.fill}
-            />
+            <Bar dataKey='screenPageViews' layout='vertical' radius={5} />
           </BarChart>
         </ChartContainer>
       </CardContent>
-      <CardFooter className='flex-col items-start gap-2 text-sm'>
-        <div className='flex gap-2 font-medium leading-none'>
-          Browser usage trends <TrendingUp className='h-4 w-4' />
-        </div>
-        <div className='leading-none text-muted-foreground'>
-          Data collected for the entire period
-        </div>
-      </CardFooter>
     </Card>
   );
 }

@@ -4,7 +4,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
-export default function ProfilePage() {
+export default function ProfilePage(): JSX.Element {
   return (
     <div className='container mx-auto p-4'>
       <Card className='max-w-3xl mx-auto'>

@@ -1,17 +1,9 @@
 'use client';
 
-import { TrendingUp } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { CartesianGrid, LabelList, Line, LineChart, XAxis } from 'recharts';
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   ChartConfig,
   ChartContainer,
@@ -30,7 +22,7 @@ type DataItem = {
 // APIから取得するデータの型
 type ApiDataItem = {
   date: string;
-  screenPageViews: string; // stringとして取得するため
+  screenPageViews: string;
 };
 
 const chartConfig = {
@@ -49,7 +41,7 @@ function formatDate(date: Date): string {
   return date.toISOString().split('T')[0];
 }
 
-export function LineGraph() {
+export function LineGraph(): JSX.Element {
   const [data, setData] = useState<DataItem[]>([]);
 
   useEffect(() => {
@@ -66,8 +58,6 @@ export function LineGraph() {
       // APIエンドポイントにクエリパラメーターを追加
       const res = await fetch(`/api/ga?startDate=${startDate}&endDate=${endDate}&dimensions=date`);
       const data: ApiDataItem[] = await res.json();
-
-      console.log('date:', data);
 
       if (!Array.isArray(data)) {
         console.error('Data is not an array:', data);
@@ -142,14 +132,6 @@ export function LineGraph() {
           </LineChart>
         </ChartContainer>
       </CardContent>
-      <CardFooter className='flex-col items-start gap-2 text-sm'>
-        <div className='flex gap-2 font-medium leading-none'>
-          Trending up by 5.2% this month <TrendingUp className='h-4 w-4' />
-        </div>
-        <div className='leading-none text-muted-foreground'>
-          Showing data from {data[0]?.date} to {data[data.length - 1]?.date}
-        </div>
-      </CardFooter>
     </Card>
   );
 }
