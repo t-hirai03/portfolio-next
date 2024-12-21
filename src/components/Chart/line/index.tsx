@@ -44,29 +44,42 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
+// **クエリパラメーターのフォーマット関数**
+function formatDate(date: Date): string {
+  return date.toISOString().split('T')[0];
+}
+
 export function LineGraph() {
-  // useStateの型をDataItem[]に変更
   const [data, setData] = useState<DataItem[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch(`/api/ga`);
-      const data: ApiDataItem[] = await res.json(); // 型指定
+      // **期間指定用のパラメーターを追加**
+      const today = new Date();
+      const lastWeek = new Date(today);
+      lastWeek.setDate(today.getDate() - 7);
+
+      // クエリパラメーターを生成
+      const startDate = formatDate(lastWeek);
+      const endDate = formatDate(today);
+
+      // APIエンドポイントにクエリパラメーターを追加
+      const res = await fetch(`/api/ga?startDate=${startDate}&endDate=${endDate}&dimensions=date`);
+      const data: ApiDataItem[] = await res.json();
+
+      console.log('date:', data);
 
       if (!Array.isArray(data)) {
         console.error('Data is not an array:', data);
         return;
       }
 
-      // データを LineGraph で使用する形式に変換
+      // データ変換処理
       const chartData: DataItem[] = data.map((item) => {
-        // 取得した日付をDateオブジェクトに変換
         const dateStr = item.date;
         const date = new Date(
           `${dateStr.substring(0, 4)}-${dateStr.substring(4, 6)}-${dateStr.substring(6, 8)}`
         );
-
-        // 曜日を取得 (Mon, Tue, Wedなど)
         const weekday = date.toLocaleString('en-US', { weekday: 'long' });
 
         return {
@@ -89,8 +102,8 @@ export function LineGraph() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Line Chart - Last Week</CardTitle>
-        <CardDescription>Showing data from the last week</CardDescription>
+        <CardTitle>Line Chart</CardTitle>
+        <CardDescription>Showing data for the selected period</CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>
@@ -133,7 +146,9 @@ export function LineGraph() {
         <div className='flex gap-2 font-medium leading-none'>
           Trending up by 5.2% this month <TrendingUp className='h-4 w-4' />
         </div>
-        <div className='leading-none text-muted-foreground'>Showing data from the last 7 days</div>
+        <div className='leading-none text-muted-foreground'>
+          Showing data from {data[0]?.date} to {data[data.length - 1]?.date}
+        </div>
       </CardFooter>
     </Card>
   );

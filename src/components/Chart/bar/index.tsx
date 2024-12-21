@@ -1,6 +1,7 @@
 'use client';
 
 import { TrendingUp } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import { Bar, BarChart, XAxis, YAxis } from 'recharts';
 
 import {
@@ -18,52 +19,79 @@ import {
   ChartTooltipContent,
 } from '@/components/ui/chart';
 
-const chartData = [
-  { browser: 'chrome', visitors: 275, fill: 'var(--color-chrome)' },
-  { browser: 'safari', visitors: 200, fill: 'var(--color-safari)' },
-  { browser: 'firefox', visitors: 187, fill: 'var(--color-firefox)' },
-  { browser: 'edge', visitors: 173, fill: 'var(--color-edge)' },
-  { browser: 'other', visitors: 90, fill: 'var(--color-other)' },
-];
+// 型定義 (APIデータ)
+type ApiDataItem = {
+  browser: string;
+  screenPageViews: string; // `visitors` を `screenPageViews` に変更
+  fill: string;
+};
 
+// チャート設定
 const chartConfig = {
-  visitors: {
-    label: 'Visitors',
-  },
-  chrome: {
+  Chrome: {
     label: 'Chrome',
     color: 'hsl(var(--chart-1))',
   },
-  safari: {
+  Safari: {
     label: 'Safari',
     color: 'hsl(var(--chart-2))',
   },
-  firefox: {
+  Firefox: {
     label: 'Firefox',
     color: 'hsl(var(--chart-3))',
   },
-  edge: {
+  Edge: {
     label: 'Edge',
     color: 'hsl(var(--chart-4))',
   },
-  other: {
+  Other: {
     label: 'Other',
     color: 'hsl(var(--chart-5))',
   },
 } satisfies ChartConfig;
 
 export function BarGraph() {
+  const [data, setData] = useState<ApiDataItem[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // APIリクエストを実行
+        const res = await fetch(`/api/ga?dimensions=browser`);
+        const responseData: ApiDataItem[] = await res.json();
+
+        if (!Array.isArray(responseData)) {
+          console.error('Data is not an array:', responseData);
+          return;
+        }
+
+        // データ変換処理
+        const chartData = responseData.map((item) => ({
+          browser: item.browser,
+          screenPageViews: item.screenPageViews, // `visitors` を `screenPageViews` に変更
+          fill: chartConfig[item.browser as keyof typeof chartConfig]?.color || 'gray', // 色設定
+        }));
+
+        setData(chartData);
+      } catch (error) {
+        console.error('Failed to fetch data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Bar Chart - Mixed</CardTitle>
-        <CardDescription>January - June 2024</CardDescription>
+        <CardTitle>Browser Usage</CardTitle>
+        <CardDescription>Browser data for all time</CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>
           <BarChart
             accessibilityLayer
-            data={chartData}
+            data={data}
             layout='vertical'
             margin={{
               left: 0,
@@ -77,18 +105,24 @@ export function BarGraph() {
               axisLine={false}
               tickFormatter={(value) => chartConfig[value as keyof typeof chartConfig]?.label}
             />
-            <XAxis dataKey='visitors' type='number' hide />
+            <XAxis dataKey='screenPageViews' type='number' hide />{' '}
+            {/* `visitors` を `screenPageViews` に変更 */}
             <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
-            <Bar dataKey='visitors' layout='vertical' radius={5} />
+            <Bar
+              dataKey='screenPageViews' // `visitors` を `screenPageViews` に変更
+              layout='vertical'
+              radius={5}
+              fill={(entry) => entry.fill}
+            />
           </BarChart>
         </ChartContainer>
       </CardContent>
       <CardFooter className='flex-col items-start gap-2 text-sm'>
         <div className='flex gap-2 font-medium leading-none'>
-          Trending up by 5.2% this month <TrendingUp className='h-4 w-4' />
+          Browser usage trends <TrendingUp className='h-4 w-4' />
         </div>
         <div className='leading-none text-muted-foreground'>
-          Showing total visitors for the last 6 months
+          Data collected for the entire period
         </div>
       </CardFooter>
     </Card>
