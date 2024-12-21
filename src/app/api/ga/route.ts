@@ -10,13 +10,13 @@ function getDefaultDateRange() {
   return { startDate: defaultStartDate, endDate: today };
 }
 
+// 修正後のparseParams関数
 function parseParams(param: string | null, defaultValue: string[]) {
-  return param ? param.split(',').map((item) => ({ name: item.trim() })) : defaultValue;
+  return param ? param.split(',').map((item) => item.trim()) : defaultValue;
 }
 
 export async function GET(req: Request) {
   try {
-    // 環境変数の取得とバリデーション
     const encodedCredentials = process.env.GOOGLE_CREDENTIALS_BASE64;
     if (!encodedCredentials) {
       throw new Error('GOOGLE_CREDENTIALS_BASE64 is not defined.');
@@ -38,24 +38,24 @@ export async function GET(req: Request) {
     const endDateFinal = endDateParam || endDate;
 
     // dimensionsとmetricsのデフォルト設定
-    const dimensions = parseParams(dimensionsParam, [{ name: 'browser' }]);
-    const metrics = parseParams(metricsParam, [{ name: 'screenPageViews' }]);
+    const dimensions = parseParams(dimensionsParam, ['browser']);
+    const metrics = parseParams(metricsParam, ['screenPageViews']);
 
     // APIリクエスト
     const [response] = await analyticsDataClient.runReport({
       property: `properties/${propertyId}`,
       dateRanges: [{ startDate: startDateFinal, endDate: endDateFinal }],
-      dimensions,
-      metrics,
+      dimensions: dimensions.map((dim) => ({ name: dim })),
+      metrics: metrics.map((met) => ({ name: met })),
     });
 
     // データ加工
     const responseData = response.rows?.map((row) => {
       const dimensionsData = dimensions.map((dim, index) => ({
-        [dim.name]: row.dimensionValues?.[index]?.value || 'unknown',
+        [dim]: row.dimensionValues?.[index]?.value || 'unknown',
       }));
       const metricsData = metrics.map((met, index) => ({
-        [met.name]: row.metricValues?.[index]?.value || '0',
+        [met]: row.metricValues?.[index]?.value || '0',
       }));
       return { ...Object.assign({}, ...dimensionsData), ...Object.assign({}, ...metricsData) };
     });
