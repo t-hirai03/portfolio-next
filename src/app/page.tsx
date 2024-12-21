@@ -12,31 +12,9 @@ import {
   TableRow,
 } from '@/components/ui/table';
 
-import { useEffect } from 'react';
-
 // import styles from './page.module.scss';
 
 export default function Home() {
-  useEffect(() => {
-    const fetchData = async () => {
-      const dimensions = 'pagePath';
-      const metrics = 'screenPageViews';
-
-      // API の呼び出しにクエリパラメータを追加
-      const res = await fetch(`/api/ga?dimensions=${dimensions}&metrics=${metrics}`);
-      const data = await res.json();
-      console.log(data);
-
-      if (!Array.isArray(data)) {
-        console.error('Data is not an array:', data);
-        return;
-      }
-      console.log(data);
-    };
-
-    fetchData();
-  }, []);
-
   const invoices = [
     {
       invoice: 'INV001',

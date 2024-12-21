@@ -1,6 +1,7 @@
 'use client';
 
 import { TrendingUp } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import { CartesianGrid, LabelList, Line, LineChart, XAxis } from 'recharts';
 
 import {
@@ -18,14 +19,19 @@ import {
   ChartTooltipContent,
 } from '@/components/ui/chart';
 
-const chartData = [
-  { month: 'January', desktop: 186, mobile: 80 },
-  { month: 'February', desktop: 305, mobile: 200 },
-  { month: 'March', desktop: 237, mobile: 120 },
-  { month: 'April', desktop: 73, mobile: 190 },
-  { month: 'May', desktop: 209, mobile: 130 },
-  { month: 'June', desktop: 214, mobile: 140 },
-];
+// 型定義
+type DataItem = {
+  date: string;
+  week: string;
+  screenPageViews: number;
+  dateObj: Date;
+};
+
+// APIから取得するデータの型
+type ApiDataItem = {
+  date: string;
+  screenPageViews: string; // stringとして取得するため
+};
 
 const chartConfig = {
   desktop: {
@@ -39,17 +45,58 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 export function LineGraph() {
+  // useStateの型をDataItem[]に変更
+  const [data, setData] = useState<DataItem[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await fetch(`/api/ga`);
+      const data: ApiDataItem[] = await res.json(); // 型指定
+
+      if (!Array.isArray(data)) {
+        console.error('Data is not an array:', data);
+        return;
+      }
+
+      // データを LineGraph で使用する形式に変換
+      const chartData: DataItem[] = data.map((item) => {
+        // 取得した日付をDateオブジェクトに変換
+        const dateStr = item.date;
+        const date = new Date(
+          `${dateStr.substring(0, 4)}-${dateStr.substring(4, 6)}-${dateStr.substring(6, 8)}`
+        );
+
+        // 曜日を取得 (Mon, Tue, Wedなど)
+        const weekday = date.toLocaleString('en-US', { weekday: 'long' });
+
+        return {
+          date: dateStr,
+          week: weekday,
+          screenPageViews: parseInt(item.screenPageViews, 10),
+          dateObj: date,
+        };
+      });
+
+      // 日付順にソート
+      const sortedData = chartData.sort((a, b) => a.dateObj.getTime() - b.dateObj.getTime());
+
+      setData(sortedData);
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Line Chart - Label</CardTitle>
-        <CardDescription>January - June 2024</CardDescription>
+        <CardTitle>Line Chart - Last Week</CardTitle>
+        <CardDescription>Showing data from the last week</CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>
           <LineChart
             accessibilityLayer
-            data={chartData}
+            data={data}
             margin={{
               top: 20,
               left: 12,
@@ -58,7 +105,7 @@ export function LineGraph() {
           >
             <CartesianGrid vertical={false} />
             <XAxis
-              dataKey='month'
+              dataKey='week'
               tickLine={false}
               axisLine={false}
               tickMargin={8}
@@ -66,7 +113,7 @@ export function LineGraph() {
             />
             <ChartTooltip cursor={false} content={<ChartTooltipContent indicator='line' />} />
             <Line
-              dataKey='desktop'
+              dataKey='screenPageViews'
               type='natural'
               stroke='var(--color-desktop)'
               strokeWidth={2}
@@ -86,9 +133,7 @@ export function LineGraph() {
         <div className='flex gap-2 font-medium leading-none'>
           Trending up by 5.2% this month <TrendingUp className='h-4 w-4' />
         </div>
-        <div className='leading-none text-muted-foreground'>
-          Showing total visitors for the last 6 months
-        </div>
+        <div className='leading-none text-muted-foreground'>Showing data from the last 7 days</div>
       </CardFooter>
     </Card>
   );

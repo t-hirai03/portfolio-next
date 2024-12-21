@@ -1,47 +1,46 @@
 import { BetaAnalyticsDataClient } from '@google-analytics/data';
 
-const propertyId = '470506821'; // プロパティID
+const propertyId = '470506821';
 
-export async function GET(req: Request) {
-  const url = new URL(req.url);
-  const searchParams = new URLSearchParams(url.search);
-
-  // リクエストのパラメータから dimensions と metrics を取得
-  const dimensions = searchParams.get('dimensions')?.split(',') || ['pagePath']; // デフォルトは pagePath
-  const metrics = searchParams.get('metrics')?.split(',') || ['screenPageViews']; // デフォルトは screenPageViews
-
+export async function GET(_req: Request) {
   try {
     const credentials = JSON.parse(
       Buffer.from(process.env.GOOGLE_CREDENTIALS_BASE64!, 'base64').toString('ascii')
     );
     const analyticsDataClient = new BetaAnalyticsDataClient({ credentials });
 
+    // 1週間前から今日までの範囲を動的に設定
+    const today = new Date();
+    const lastWeek = new Date(today);
+    lastWeek.setDate(today.getDate() - 7);
+
+    const startDate = lastWeek.toISOString().split('T')[0]; // yyyy-mm-dd
+    const endDate = today.toISOString().split('T')[0]; // yyyy-mm-dd
+
     const [response] = await analyticsDataClient.runReport({
       property: `properties/${propertyId}`,
       dateRanges: [
         {
-          startDate: '2024-12-18', // 取得したい期間を設定
-          endDate: 'today',
+          startDate,
+          endDate,
         },
       ],
-      dimensions: dimensions.map((name) => ({ name })), // dimensions を動的に設定
-      metrics: metrics.map((name) => ({ name })), // metrics を動的に設定
+      dimensions: [
+        {
+          name: 'date',
+        },
+      ],
+      metrics: [
+        {
+          name: 'screenPageViews',
+        },
+      ],
     });
 
-    // 動的に取得した dimensions と metrics に基づいて rankingData をマッピング
-    const rankingData = response.rows?.map((row) => {
-      const data: Record<string, string> = {};
-
-      // dimensions と metrics を動的に処理
-      dimensions.forEach((dimension, index) => {
-        data[dimension] = row.dimensionValues?.[index]?.value || '';
-      });
-      metrics.forEach((metric, index) => {
-        data[metric] = row.metricValues?.[index]?.value || '0';
-      });
-
-      return data;
-    });
+    const rankingData = response.rows?.map((row) => ({
+      date: row.dimensionValues?.[0]?.value || '',
+      screenPageViews: row.metricValues?.[0]?.value || '0',
+    }));
 
     return new Response(JSON.stringify(rankingData), { status: 200 });
   } catch (error) {
