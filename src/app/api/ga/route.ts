@@ -1,8 +1,15 @@
 import { BetaAnalyticsDataClient } from '@google-analytics/data';
 
-const propertyId = '470506821';
+const propertyId = '470506821'; // プロパティID
 
 export async function GET(req: Request) {
+  const url = new URL(req.url);
+  const searchParams = new URLSearchParams(url.search);
+
+  // リクエストのパラメータから dimensions と metrics を取得
+  const dimensions = searchParams.get('dimensions')?.split(',') || ['pagePath']; // デフォルトは pagePath
+  const metrics = searchParams.get('metrics')?.split(',') || ['screenPageViews']; // デフォルトは screenPageViews
+
   try {
     const credentials = JSON.parse(
       Buffer.from(process.env.GOOGLE_CREDENTIALS_BASE64!, 'base64').toString('ascii')
@@ -17,22 +24,24 @@ export async function GET(req: Request) {
           endDate: 'today',
         },
       ],
-      dimensions: [
-        {
-          name: 'pagePath', // ページのパスを取得
-        },
-      ],
-      metrics: [
-        {
-          name: 'screenPageViews', // PV数を取得
-        },
-      ],
+      dimensions: dimensions.map((name) => ({ name })), // dimensions を動的に設定
+      metrics: metrics.map((name) => ({ name })), // metrics を動的に設定
     });
 
-    const rankingData = response.rows?.map((row) => ({
-      pagePath: row.dimensionValues?.[0]?.value || '',
-      uniquePageviews: row.metricValues?.[0]?.value || '0',
-    }));
+    // 動的に取得した dimensions と metrics に基づいて rankingData をマッピング
+    const rankingData = response.rows?.map((row) => {
+      const data: Record<string, string> = {};
+
+      // dimensions と metrics を動的に処理
+      dimensions.forEach((dimension, index) => {
+        data[dimension] = row.dimensionValues?.[index]?.value || '';
+      });
+      metrics.forEach((metric, index) => {
+        data[metric] = row.metricValues?.[index]?.value || '0';
+      });
+
+      return data;
+    });
 
     return new Response(JSON.stringify(rankingData), { status: 200 });
   } catch (error) {

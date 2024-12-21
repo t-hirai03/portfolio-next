@@ -19,7 +19,11 @@ import { useEffect } from 'react';
 export default function Home() {
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch(`/api/ga`);
+      const dimensions = 'pagePath';
+      const metrics = 'screenPageViews';
+
+      // API の呼び出しにクエリパラメータを追加
+      const res = await fetch(`/api/ga?dimensions=${dimensions}&metrics=${metrics}`);
       const data = await res.json();
       console.log(data);
 
@@ -30,7 +34,7 @@ export default function Home() {
       console.log(data);
     };
 
-    fetchData(); // useEffectの外側で関数を実行
+    fetchData();
   }, []);
 
   const invoices = [
