@@ -15,7 +15,7 @@ function parseParams(param: string | null, defaultValue: string[]) {
   return param ? param.split(',').map((item) => item.trim()) : defaultValue;
 }
 
-export async function GET(req: Request) {
+export async function GET(req: Request): Promise<Response> {
   try {
     const encodedCredentials = process.env.GOOGLE_CREDENTIALS_BASE64;
     if (!encodedCredentials) {

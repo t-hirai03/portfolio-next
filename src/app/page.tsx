@@ -5,7 +5,7 @@ import { LineGraph } from '@/components/Chart/line';
 import { View } from '@/components/Chart/view';
 import { ProjectsTable } from '@/components/projects';
 
-export default function Home() {
+export default function Home(): JSX.Element {
   return (
     <div className='flex flex-1 flex-col gap-4 pt-0'>
       <div className='grid auto-rows-min gap-4 md:grid-cols-3'>

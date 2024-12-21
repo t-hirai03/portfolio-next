@@ -27,7 +27,7 @@ export function NavProjects({
     url: string;
     icon: LucideIcon;
   }[];
-}) {
+}): JSX.Element {
   const { isMobile } = useSidebar();
 
   return (
