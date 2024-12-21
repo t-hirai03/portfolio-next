@@ -12,51 +12,77 @@ import {
   TableRow,
 } from '@/components/ui/table';
 
-// import styles from './page.module.scss';
-
 export default function Home() {
-  const invoices = [
+  const projects = [
     {
-      invoice: 'INV001',
-      paymentStatus: 'Paid',
-      totalAmount: '$250.00',
-      paymentMethod: 'Credit Card',
+      name: 'スターペイント 見積もりチャットボット',
+      technologies: 'Next.js TypeScript',
+      url: 'https://estimate.starpaint.jp/',
     },
     {
-      invoice: 'INV002',
-      paymentStatus: 'Pending',
-      totalAmount: '$150.00',
-      paymentMethod: 'PayPal',
+      name: '利回りくん 奈義町プロジェクト',
+      technologies: 'Next.js TypeScript',
+      url: 'https://rimawarikun.com/lp/nagicho/',
     },
     {
-      invoice: 'INV003',
-      paymentStatus: 'Unpaid',
-      totalAmount: '$350.00',
-      paymentMethod: 'Bank Transfer',
+      name: '利回りくん 高野山プロジェクト',
+      technologies: 'Rails',
+      url: 'https://rimawarikun.com/donations/projects/koyasan/',
     },
     {
-      invoice: 'INV004',
-      paymentStatus: 'Paid',
-      totalAmount: '$450.00',
-      paymentMethod: 'Credit Card',
+      name: '利回りくん 100億円キャンペーンLP',
+      technologies: 'Rails',
+      url: 'https://rimawarikun.com/lp/10b_202412_cp/',
     },
     {
-      invoice: 'INV005',
-      paymentStatus: 'Paid',
-      totalAmount: '$550.00',
-      paymentMethod: 'PayPal',
+      name: 'スターペイント FCサイトLP',
+      technologies: 'WordPress original theme',
+      url: 'https://fc.starpaint.jp/',
     },
     {
-      invoice: 'INV006',
-      paymentStatus: 'Pending',
-      totalAmount: '$200.00',
-      paymentMethod: 'Bank Transfer',
+      name: '栃木ミサワ',
+      technologies: 'Astro',
+      url: 'https://tg-misawawork.sakura.ne.jp/nasuworkation/',
     },
     {
-      invoice: 'INV007',
-      paymentStatus: 'Unpaid',
-      totalAmount: '$300.00',
-      paymentMethod: 'Credit Card',
+      name: '中日地質',
+      technologies: 'Astro',
+      url: 'https://chunichi-chishitsu.com/',
+    },
+    {
+      name: '小畑製紙所',
+      technologies: 'Astro',
+      url: 'https://obataseishijo.jp/',
+    },
+    {
+      name: '地球科学総合研究所',
+      technologies: 'WordPress original theme',
+      url: 'https://jgi-inc.com/',
+    },
+    {
+      name: 'オーディオブレインズ beyerdynamic',
+      technologies: 'WordPress original theme',
+      url: 'https://beyerdynamic.co.jp/',
+    },
+    {
+      name: 'カラヤ三協',
+      technologies: 'WordPress original theme',
+      url: 'https://karayasankyo.com/',
+    },
+    {
+      name: 'カネキ運輸',
+      technologies: 'WordPress original theme',
+      url: 'https://kaneki-unyu.co.jp/',
+    },
+    {
+      name: '高善産業',
+      technologies: 'WordPress original theme',
+      url: 'https://takazen-sangyo.com/',
+    },
+    {
+      name: '神奈川工科大企画',
+      technologies: 'html, css, js',
+      url: 'https://kait-ext.securesite.jp/company/index.html',
     },
   ];
 
@@ -77,19 +103,26 @@ export default function Home() {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead className='w-[100px]'>Invoice</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Method</TableHead>
-              <TableHead className='text-right'>Amount</TableHead>
+              <TableHead className='w-[200px]'>サイト名</TableHead>
+              <TableHead>使用技術</TableHead>
+              <TableHead>URL</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {invoices.map((invoice) => (
-              <TableRow key={invoice.invoice}>
-                <TableCell className='font-medium'>{invoice.invoice}</TableCell>
-                <TableCell>{invoice.paymentStatus}</TableCell>
-                <TableCell>{invoice.paymentMethod}</TableCell>
-                <TableCell className='text-right'>{invoice.totalAmount}</TableCell>
+            {projects.map((project) => (
+              <TableRow key={project.name}>
+                <TableCell className='font-medium'>{project.name}</TableCell>
+                <TableCell>{project.technologies}</TableCell>
+                <TableCell>
+                  <a
+                    href={project.url}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    className='text-blue-500 hover:underline'
+                  >
+                    {project.url}
+                  </a>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
