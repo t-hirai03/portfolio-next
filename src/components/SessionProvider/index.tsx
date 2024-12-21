@@ -26,7 +26,6 @@ const AuthSessionTracking = ({ children }: { children: React.ReactNode }) => {
         userName: session.user.name,
         userEmail: session.user.email,
       });
-      console.log(window.dataLayer);
     }
   }, [session]);
 
