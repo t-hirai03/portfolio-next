@@ -1,3 +1,5 @@
+'use client';
+
 import { BarGraph } from '@/components/Chart/bar';
 import { LineGraph } from '@/components/Chart/line';
 import { View } from '@/components/Chart/view';
@@ -10,9 +12,27 @@ import {
   TableRow,
 } from '@/components/ui/table';
 
+import { useEffect } from 'react';
+
 // import styles from './page.module.scss';
 
 export default function Home() {
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await fetch(`/api/ga`);
+      const data = await res.json();
+      console.log(data);
+
+      if (!Array.isArray(data)) {
+        console.error('Data is not an array:', data);
+        return;
+      }
+      console.log(data);
+    };
+
+    fetchData(); // useEffectの外側で関数を実行
+  }, []);
+
   const invoices = [
     {
       invoice: 'INV001',
