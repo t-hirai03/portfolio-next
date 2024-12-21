@@ -2,6 +2,18 @@ import { BetaAnalyticsDataClient } from '@google-analytics/data';
 
 const propertyId = '470506821';
 
+function getDefaultDateRange() {
+  const today = new Date().toISOString().split('T')[0];
+  const oneYearAgo = new Date();
+  oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+  const defaultStartDate = oneYearAgo.toISOString().split('T')[0];
+  return { startDate: defaultStartDate, endDate: today };
+}
+
+function parseParams(param: string | null, defaultValue: string[]) {
+  return param ? param.split(',').map((item) => ({ name: item.trim() })) : defaultValue;
+}
+
 export async function GET(req: Request) {
   try {
     // 環境変数の取得とバリデーション
@@ -11,7 +23,6 @@ export async function GET(req: Request) {
     }
 
     const credentials = JSON.parse(Buffer.from(encodedCredentials, 'base64').toString('ascii'));
-
     const analyticsDataClient = new BetaAnalyticsDataClient({ credentials });
 
     // クエリパラメーター取得
@@ -21,33 +32,19 @@ export async function GET(req: Request) {
     const dimensionsParam = url.searchParams.get('dimensions');
     const metricsParam = url.searchParams.get('metrics');
 
-    // 日付のデフォルト設定
-    const today = new Date().toISOString().split('T')[0];
-    const oneYearAgo = new Date();
-    oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
-    const defaultStartDate = oneYearAgo.toISOString().split('T')[0];
-
-    const startDate = startDateParam || defaultStartDate; // デフォルトは1年前
-    const endDate = endDateParam || today; // デフォルトは今日
+    // デフォルト日付取得
+    const { startDate, endDate } = getDefaultDateRange();
+    const startDateFinal = startDateParam || startDate;
+    const endDateFinal = endDateParam || endDate;
 
     // dimensionsとmetricsのデフォルト設定
-    const dimensions = dimensionsParam
-      ? dimensionsParam.split(',').map((d) => ({ name: d.trim() }))
-      : [{ name: 'browser' }]; // デフォルトはブラウザ
-
-    const metrics = metricsParam
-      ? metricsParam.split(',').map((m) => ({ name: m.trim() }))
-      : [{ name: 'screenPageViews' }]; // デフォルトは訪問者数
+    const dimensions = parseParams(dimensionsParam, [{ name: 'browser' }]);
+    const metrics = parseParams(metricsParam, [{ name: 'screenPageViews' }]);
 
     // APIリクエスト
     const [response] = await analyticsDataClient.runReport({
       property: `properties/${propertyId}`,
-      dateRanges: [
-        {
-          startDate,
-          endDate,
-        },
-      ],
+      dateRanges: [{ startDate: startDateFinal, endDate: endDateFinal }],
       dimensions,
       metrics,
     });
@@ -57,12 +54,10 @@ export async function GET(req: Request) {
       const dimensionsData = dimensions.map((dim, index) => ({
         [dim.name]: row.dimensionValues?.[index]?.value || 'unknown',
       }));
-
       const metricsData = metrics.map((met, index) => ({
         [met.name]: row.metricValues?.[index]?.value || '0',
       }));
-
-      return Object.assign({}, ...dimensionsData, ...metricsData);
+      return { ...Object.assign({}, ...dimensionsData), ...Object.assign({}, ...metricsData) };
     });
 
     // 正常レスポンス

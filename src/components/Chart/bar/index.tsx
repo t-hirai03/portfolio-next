@@ -1,6 +1,5 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { Bar, BarChart, XAxis, YAxis } from 'recharts';
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -11,14 +10,8 @@ import {
   ChartTooltipContent,
 } from '@/components/ui/chart';
 
-// 型定義 (APIデータ)
-type ApiDataItem = {
-  browser: string;
-  screenPageViews: string;
-  fill: string;
-};
+import { useBrowserData } from './useBrowserData';
 
-// チャート設定
 const chartConfig = {
   Chrome: {
     label: 'Chrome',
@@ -43,35 +36,7 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 export function BarGraph(): JSX.Element {
-  const [data, setData] = useState<ApiDataItem[]>([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // APIリクエストを実行
-        const res = await fetch(`/api/ga?dimensions=browser`);
-        const responseData: ApiDataItem[] = await res.json();
-
-        if (!Array.isArray(responseData)) {
-          console.error('Data is not an array:', responseData);
-          return;
-        }
-
-        // データ変換処理
-        const chartData = responseData.map((item) => ({
-          browser: item.browser,
-          screenPageViews: item.screenPageViews,
-          fill: chartConfig[item.browser as keyof typeof chartConfig]?.color || 'gray',
-        }));
-
-        setData(chartData);
-      } catch (error) {
-        console.error('Failed to fetch data:', error);
-      }
-    };
-
-    fetchData();
-  }, []);
+  const data = useBrowserData(); // カスタムフックでデータ取得
 
   return (
     <Card>

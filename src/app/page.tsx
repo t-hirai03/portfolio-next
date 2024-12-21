@@ -64,10 +64,10 @@ export default function Home() {
     <div className='flex flex-1 flex-col gap-4 pt-0'>
       <div className='grid auto-rows-min gap-4 md:grid-cols-3'>
         <div className='rounded-xl bg-muted/50'>
-          <View />
+          <BarGraph />
         </div>
         <div className='rounded-xl bg-muted/50'>
-          <BarGraph />
+          <View />
         </div>
         <div className='rounded-xl bg-muted/50'>
           <LineGraph />
