@@ -30,7 +30,7 @@ const chartConfig = {
   },
 };
 
-export function useBrowserData() {
+export function useBrowserData(): ApiDataItem[] {
   const [data, setData] = useState<ApiDataItem[]>([]);
 
   useEffect(() => {

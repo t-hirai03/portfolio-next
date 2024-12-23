@@ -16,7 +16,7 @@ function formatDate(date: Date): string {
   return date.toISOString().split('T')[0];
 }
 
-export function useGaData() {
+export function useGaData(): DataItem[] {
   const [data, setData] = useState<DataItem[]>([]);
 
   useEffect(() => {
