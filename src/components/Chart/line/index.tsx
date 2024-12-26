@@ -1,4 +1,3 @@
-// LineGraph.tsx
 'use client';
 
 import { CartesianGrid, LabelList, Line, LineChart, XAxis } from 'recharts';
@@ -30,8 +29,8 @@ export function LineGraph(): JSX.Element {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Line Chart</CardTitle>
-        <CardDescription>Showing data for the selected period</CardDescription>
+        <CardTitle>ページ閲覧数</CardTitle>
+        <CardDescription>計測できた直近7日分のデータを計測</CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>
@@ -49,7 +48,7 @@ export function LineGraph(): JSX.Element {
               dataKey='week'
               tickLine={false}
               axisLine={false}
-              tickMargin={8}
+              tickMargin={10}
               tickFormatter={(value) => value.slice(0, 3)}
             />
             <ChartTooltip cursor={false} content={<ChartTooltipContent indicator='line' />} />

@@ -14,13 +14,7 @@ import {
   SidebarRail,
 } from '@/components/ui/sidebar';
 
-// This is sample data.
 const data = {
-  user: {
-    name: 'shadcn',
-    email: 'm@example.com',
-    avatar: '/globe.svg',
-  },
   teams: [
     {
       name: 'Acme Inc',
@@ -61,16 +55,6 @@ const data = {
     },
   ],
   // projects: [
-  //   {
-  //     name: 'Design Engineering',
-  //     url: '#',
-  //     icon: Frame,
-  //   },
-  //   {
-  //     name: 'Sales & Marketing',
-  //     url: '#',
-  //     icon: PieChart,
-  //   },
   //   {
   //     name: 'Travel',
   //     url: '#',
