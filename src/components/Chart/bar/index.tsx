@@ -3,57 +3,31 @@
 import { Bar, BarChart, XAxis, YAxis } from 'recharts';
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import {
-  ChartConfig,
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from '@/components/ui/chart';
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
 
 import { useBrowserData } from './useBrowserData';
 
+// グラフのデータ設定
 const chartConfig = {
-  Chrome: {
-    label: 'Chrome',
-    color: 'hsl(var(--chart-1))',
-  },
-  Safari: {
-    label: 'Safari',
-    color: 'hsl(var(--chart-2))',
-  },
-  Firefox: {
-    label: 'Firefox',
-    color: 'hsl(var(--chart-3))',
-  },
-  Edge: {
-    label: 'Edge',
-    color: 'hsl(var(--chart-4))',
-  },
-  Other: {
-    label: 'Other',
-    color: 'hsl(var(--chart-5))',
-  },
-} satisfies ChartConfig;
+  Chrome: { label: 'Chrome', color: 'hsl(var(--chart-1))' },
+  Safari: { label: 'Safari', color: 'hsl(var(--chart-2))' },
+  Firefox: { label: 'Firefox', color: 'hsl(var(--chart-3))' },
+  Edge: { label: 'Edge', color: 'hsl(var(--chart-4))' },
+  Other: { label: 'Other', color: 'hsl(var(--chart-5))' },
+};
 
 export function BarGraph(): JSX.Element {
-  const data = useBrowserData(); // カスタムフックでデータ取得
+  const data = useBrowserData();
 
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Browser Usage</CardTitle>
-        <CardDescription>Browser data for all time</CardDescription>
+        <CardTitle>ブラウザごとの閲覧数</CardTitle>
+        <CardDescription>各ブラウザの閲覧数データ（全期間）</CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>
-          <BarChart
-            accessibilityLayer
-            data={data}
-            layout='vertical'
-            margin={{
-              left: 0,
-            }}
-          >
+          <BarChart accessibilityLayer data={data} layout='vertical' margin={{ left: 0 }}>
             <YAxis
               dataKey='browser'
               type='category'
@@ -64,7 +38,7 @@ export function BarGraph(): JSX.Element {
             />
             <XAxis dataKey='screenPageViews' type='number' hide />
             <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
-            <Bar dataKey='screenPageViews' layout='vertical' radius={5} />
+            <Bar dataKey='screenPageViews' radius={5} />
           </BarChart>
         </ChartContainer>
       </CardContent>
