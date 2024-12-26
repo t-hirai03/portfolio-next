@@ -28,7 +28,7 @@ export default function DashboardProfile() {
             </CardHeader>
             <CardContent>
               <p className='mb-4 text-sm sm:text-base'>
-                5年間地元の福井県でSESとWEB制作を経験し、2024年から東京の企業でフロントエンドエンジニアをしています。
+                5年間地元の福井県でSESとWEB制作を経験し、2024年から東京の企業でフロントエンドエンジニアとして働いています。
                 <br />
                 最近はNext.jsとTypeScriptを使用したウェブアプリケーション開発とAIに興味があります。
                 <br />
