@@ -1,6 +1,6 @@
 'use client';
 
-import { AudioWaveform, Command, GalleryVerticalEnd, SquareTerminal } from 'lucide-react';
+import { BarChart, SquareTerminal } from 'lucide-react';
 import * as React from 'react';
 
 import { NavMain } from '@/components/nav-main';
@@ -14,29 +14,10 @@ import {
 } from '@/components/ui/sidebar';
 
 const data = {
-  teams: [
-    {
-      name: 'Acme Inc',
-      logo: GalleryVerticalEnd,
-      plan: 'Enterprise',
-    },
-    {
-      name: 'Acme Corp.',
-      logo: AudioWaveform,
-      plan: 'Startup',
-    },
-    {
-      name: 'Evil Corp.',
-      logo: Command,
-      plan: 'Free',
-    },
-  ],
   navMain: [
     {
-      title: 'プロフィール',
-      url: '/',
+      title: 'メイン',
       icon: SquareTerminal,
-      isActive: true,
       items: [
         {
           title: 'トップページ',
@@ -50,9 +31,16 @@ const data = {
           title: '制作実績',
           url: '/projects',
         },
+      ],
+    },
+    {
+      title: '分析',
+      icon: BarChart,
+      items: [
         {
-          title: '分析',
+          title: 'アクセス解析',
           url: '/analytics',
+          icon: BarChart,
         },
       ],
     },
