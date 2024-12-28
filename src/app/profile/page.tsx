@@ -1,7 +1,7 @@
 import { FaEnvelope, FaGithub } from 'react-icons/fa';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 
 export default function DashboardProfile() {
   return (
@@ -12,17 +12,18 @@ export default function DashboardProfile() {
         </div>
 
         <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6'>
-          {/* プロフィール概要 */}
           <Card className='sm:col-span-2'>
             <CardHeader className='flex flex-col sm:flex-row items-center sm:items-start space-y-4 sm:space-y-0 sm:space-x-4'>
               <Avatar className='h-20 w-20'>
-                <AvatarImage src='/placeholder.svg?height=80&width=80' alt='プロフィール画像' />
+                <AvatarImage
+                  src='/assets/images/hirai.jpg?height=80&width=80'
+                  alt='プロフィール画像'
+                />
                 <AvatarFallback>平井</AvatarFallback>
               </Avatar>
               <div className='text-center sm:text-left'>
                 <CardTitle className='text-xl sm:text-2xl'>平井 隆裕</CardTitle>
                 <p className='text-muted-foreground'>ひらい たかひろ</p>
-                {/* 生年月日 */}
                 <p className='text-muted-foreground'>1995年9月23日生まれ</p>
               </div>
             </CardHeader>
@@ -32,7 +33,7 @@ export default function DashboardProfile() {
                 <br />
                 最近はNext.jsとTypeScriptを使用したウェブアプリケーション開発とAIに興味があります。
                 <br />
-                休日はよく食べに行きます。お酒も好きです。
+                休日はよく食べに行きます。焼酎よく飲みます。
               </p>
               <div className='flex justify-center sm:justify-start space-x-4'>
                 <a
@@ -58,11 +59,14 @@ export default function DashboardProfile() {
             </CardHeader>
             <CardContent className='flex justify-center'>
               <img
-                src='/path/to/dog-image.jpg'
-                alt='愛犬の画像'
+                src='/assets/images/dog.jpg'
+                alt='あずき'
                 className='rounded-lg w-40 h-40 object-cover'
               />
             </CardContent>
+            <CardFooter>
+              <p className='text-muted-foreground text-center mt-2'>あずき</p>
+            </CardFooter>
           </Card>
 
           {/* 経歴 */}

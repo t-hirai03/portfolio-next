@@ -73,7 +73,7 @@ export default function RootLayout({
               <AppSidebar />
               <SidebarInset>
                 <Header />
-                <main className='p-4 custom-min-height'>{children}</main>
+                <div className='p-4 custom-min-height'>{children}</div>
               </SidebarInset>
             </SidebarProvider>
           </ThemeProvider>
