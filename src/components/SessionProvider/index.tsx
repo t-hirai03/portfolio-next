@@ -25,6 +25,7 @@ const AuthSessionTracking = ({ children }: { children: React.ReactNode }) => {
         event: 'loginUserInfo',
         userName: session.user.name,
         userEmail: session.user.email,
+        userIcon: session.user.image,
       });
     }
   }, [session]);

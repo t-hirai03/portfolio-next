@@ -9,8 +9,6 @@ import Header from '@/components/Header';
 import { NextAuthProvider } from '@/components/SessionProvider';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
-import { useSession } from 'next-auth/react';
-import { useEffect } from 'react';
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -34,23 +32,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>): JSX.Element {
-  const { data: session } = useSession();
-
-  useEffect(() => {
-    if (session) {
-      // カスタムディメンションでユーザー情報を送信
-      window.dataLayer = window.dataLayer || [];
-      window.dataLayer.push({
-        event: 'user_info',
-        user: {
-          name: session.user?.name,
-          email: session.user?.email,
-          icon: session.user?.image,
-        },
-      });
-    }
-  }, [session]);
-
   return (
     <html lang='ja' suppressHydrationWarning>
       <head>
