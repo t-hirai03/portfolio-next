@@ -3,8 +3,8 @@
 import { BarChart, SquareTerminal } from 'lucide-react';
 import * as React from 'react';
 
-import { NavMain } from '@/components/nav-main';
-import { NavUser } from '@/components/nav-user';
+import { NavMain } from '@/components/Navigation/Main';
+import { NavUser } from '@/components/Navigation/User';
 import {
   Sidebar,
   SidebarContent,

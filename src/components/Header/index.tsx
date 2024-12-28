@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ThemeToggle } from '@/components/theme-toggle';
+import { ThemeToggle } from '@/components/ThemeToggle';
 import { Separator } from '@/components/ui/separator';
 import { SidebarTrigger } from '@/components/ui/sidebar';
 
