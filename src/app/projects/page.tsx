@@ -1,4 +1,4 @@
-import { ProjectsTable } from '@/components/Projects';
+import { ProjectsTable } from '@/components/ProjectsTable';
 import { Title } from '@/components/Title';
 
 export default function ProjectsPage(): JSX.Element {
