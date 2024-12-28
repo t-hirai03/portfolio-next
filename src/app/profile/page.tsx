@@ -1,5 +1,6 @@
 import { FaEnvelope, FaGithub } from 'react-icons/fa';
 
+import { Title } from '@/components/Title';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 
@@ -7,10 +8,7 @@ export default function DashboardProfile() {
   return (
     <div className='bg-background text-foreground'>
       <div className='max-w-7xl mx-auto'>
-        <div className='flex flex-col sm:flex-row justify-between items-center mb-6 sm:mb-8'>
-          <h2 className='text-2xl sm:text-4xl font-bold mb-4 sm:mb-0'>プロフィール</h2>
-        </div>
-
+        <Title text='プロフィール' />
         <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6'>
           <Card className='sm:col-span-2'>
             <CardHeader className='flex flex-col sm:flex-row items-center sm:items-start space-y-4 sm:space-y-0 sm:space-x-4'>

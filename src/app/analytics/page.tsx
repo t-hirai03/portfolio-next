@@ -3,11 +3,12 @@
 import { BarGraph } from '@/components/Chart/bar';
 import { LineGraph } from '@/components/Chart/line';
 import { View } from '@/components/Chart/view';
+import { Title } from '@/components/Title';
 
 export default function Analytics(): JSX.Element {
   return (
     <div className='flex flex-1 flex-col gap-4 pt-0'>
-      <h2 className='text-3xl font-semibold text-primary'>分析</h2>
+      <Title text='アクセス解析' />
       <p>Google AnalyticsからAPIでデータを取得し、ここで表示しています。</p>
       <div className='grid auto-rows-min gap-4 md:grid-cols-3'>
         <div className='rounded-xl bg-muted/50'>
