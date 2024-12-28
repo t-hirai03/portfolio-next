@@ -1,10 +1,14 @@
-'use client';
-
 import { signIn } from 'next-auth/react';
 
 import { Icons } from '@/components/LoginIcon';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+
+export function generateMetadata() {
+  return {
+    title: 'ログイン | ポートフォリオ',
+  };
+}
 
 export default function LoginPage(): JSX.Element {
   return (

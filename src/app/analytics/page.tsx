@@ -1,9 +1,13 @@
-'use client';
-
 import { BarGraph } from '@/components/Chart/bar';
 import { LineGraph } from '@/components/Chart/line';
 import { View } from '@/components/Chart/view';
 import { Title } from '@/components/Title';
+
+export function generateMetadata() {
+  return {
+    title: 'アクセス解析 | ポートフォリオ',
+  };
+}
 
 export default function Analytics(): JSX.Element {
   return (

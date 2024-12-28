@@ -4,6 +4,12 @@ import { Title } from '@/components/Title';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 
+export function generateMetadata() {
+  return {
+    title: 'プロフィール | ポートフォリオ',
+  };
+}
+
 export default function DashboardProfile() {
   return (
     <div className='bg-background text-foreground'>
