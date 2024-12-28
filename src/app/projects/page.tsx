@@ -1,5 +1,4 @@
-import { ProjectsTable } from '@/components/ProjectsTable';
-import { Title } from '@/components/Title';
+import ProjectsPage from '@/components/pages/projects';
 
 export function generateMetadata() {
   return {
@@ -7,11 +6,6 @@ export function generateMetadata() {
   };
 }
 
-export default function ProjectsPage(): JSX.Element {
-  return (
-    <div className='flex flex-1 flex-col gap-4 pt-0'>
-      <Title text='制作実績' />
-      <ProjectsTable />
-    </div>
-  );
+export default function Projects(): JSX.Element {
+  return <ProjectsPage />;
 }
