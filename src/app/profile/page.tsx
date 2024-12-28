@@ -5,7 +5,7 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/componen
 
 export default function DashboardProfile() {
   return (
-    <div className='min-h-screen bg-background text-foreground'>
+    <div className='bg-background text-foreground'>
       <div className='max-w-7xl mx-auto'>
         <div className='flex flex-col sm:flex-row justify-between items-center mb-6 sm:mb-8'>
           <h2 className='text-2xl sm:text-4xl font-bold mb-4 sm:mb-0'>プロフィール</h2>

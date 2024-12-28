@@ -63,7 +63,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>): 
   return (
     <Sidebar collapsible='icon' {...props}>
       <SidebarHeader>
-        <h1 className='text-lg font-bold text-center'>My Portfolio</h1>
+        <div className='flex items-center justify-center h-16'>
+          <h1 className='text-lg font-bold text-center group-data-[collapsible=icon]:hidden'>
+            Portfolio Hirai
+          </h1>
+          <span className='text-2xl font-bold hidden group-data-[collapsible=icon]:block'>PH</span>
+        </div>
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
