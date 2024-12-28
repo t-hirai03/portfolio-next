@@ -4,10 +4,10 @@ import './globals.css';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 
-import { AppSidebar } from '@/components/app-sidebar';
+import { AppSidebar } from '@/components/AppSidebar';
 import Header from '@/components/Header';
 import { NextAuthProvider } from '@/components/SessionProvider';
-import { ThemeProvider } from '@/components/theme-provider';
+import { ThemeProvider } from '@/components/ThemeProvider';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 
 const geistSans = localFont({
@@ -73,7 +73,7 @@ export default function RootLayout({
               <AppSidebar />
               <SidebarInset>
                 <Header />
-                <main className='p-4 custom-min-height'>{children}</main>
+                <div className='p-4 custom-min-height'>{children}</div>
               </SidebarInset>
             </SidebarProvider>
           </ThemeProvider>

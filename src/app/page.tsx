@@ -1,32 +1,38 @@
 'use client';
 
-import { BarGraph } from '@/components/Chart/bar';
-import { LineGraph } from '@/components/Chart/line';
-import { View } from '@/components/Chart/view';
-// import { ProjectsTable } from '@/components/projects';
+import { motion } from 'framer-motion';
+import Image from 'next/image';
 
-export default function Home(): JSX.Element {
+export default function Home() {
   return (
-    <div className='flex flex-1 flex-col gap-4 pt-0'>
-      <h1 className='text-3xl font-semibold text-primary'>ポートフォリオ</h1>
-      <p>
-        ここには自分のポートフォリオを表示します。
-        どんなプロジェクトに取り組んでいるか、どんなスキルを持っているかを
-        他の人に見せることができます。
-      </p>
-
-      <div className='grid auto-rows-min gap-4 md:grid-cols-3'>
-        <div className='rounded-xl bg-muted/50'>
-          <BarGraph />
-        </div>
-        <div className='rounded-xl bg-muted/50'>
-          <View />
-        </div>
-        <div className='rounded-xl bg-muted/50'>
-          <LineGraph />
-        </div>
+    <div className='relative h-full overflow-hidden'>
+      <Image
+        src='/assets/images/tokyo_station.jpg'
+        alt='背景画像'
+        layout='fill'
+        objectFit='cover'
+        quality={100}
+        className='z-0'
+      />
+      <div className='absolute inset-0 bg-black bg-opacity-50 z-10'></div>
+      <div className='relative z-20 h-full flex flex-col justify-center items-center text-white p-4'>
+        <motion.h1
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className='text-5xl md:text-7xl font-bold mb-4 text-center'
+        >
+          Portfolio Hirai
+        </motion.h1>
+        <motion.p
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className='text-xl md:text-2xl mb-8 text-center'
+        >
+          Next.js、TypeScriptを使用して作成したポートフォリオサイトです。
+        </motion.p>
       </div>
-      {/* <ProjectsTable /> */}
     </div>
   );
 }

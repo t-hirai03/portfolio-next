@@ -1,12 +1,11 @@
-'use client';
+import ProjectsPage from '@/components/pages/projects';
 
-import { ProjectsTable } from '@/components/projects';
+export function generateMetadata() {
+  return {
+    title: '制作実績 | ポートフォリオ',
+  };
+}
 
-export default function ProjectsPage(): JSX.Element {
-  return (
-    <div className='flex flex-1 flex-col gap-4 pt-0'>
-      <h2 className='text-2xl font-bold mb-4'>制作実績</h2>
-      <ProjectsTable />
-    </div>
-  );
+export default function Projects(): JSX.Element {
+  return <ProjectsPage />;
 }

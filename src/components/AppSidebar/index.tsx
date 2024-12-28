@@ -1,11 +1,10 @@
 'use client';
 
-import { AudioWaveform, Command, GalleryVerticalEnd, SquareTerminal } from 'lucide-react';
+import { BarChart, SquareTerminal } from 'lucide-react';
 import * as React from 'react';
 
-import { NavMain } from '@/components/nav-main';
-import { NavUser } from '@/components/nav-user';
-import { TeamSwitcher } from '@/components/team-switcher';
+import { NavMain } from '@/components/Navigation/Main';
+import { NavUser } from '@/components/Navigation/User';
 import {
   Sidebar,
   SidebarContent,
@@ -15,29 +14,10 @@ import {
 } from '@/components/ui/sidebar';
 
 const data = {
-  teams: [
-    {
-      name: 'Acme Inc',
-      logo: GalleryVerticalEnd,
-      plan: 'Enterprise',
-    },
-    {
-      name: 'Acme Corp.',
-      logo: AudioWaveform,
-      plan: 'Startup',
-    },
-    {
-      name: 'Evil Corp.',
-      logo: Command,
-      plan: 'Free',
-    },
-  ],
   navMain: [
     {
-      title: 'ホーム',
-      url: '/',
+      title: 'メイン',
       icon: SquareTerminal,
-      isActive: true,
       items: [
         {
           title: 'トップページ',
@@ -53,25 +33,33 @@ const data = {
         },
       ],
     },
+    {
+      title: '分析',
+      icon: BarChart,
+      items: [
+        {
+          title: 'アクセス解析',
+          url: '/analytics',
+          icon: BarChart,
+        },
+      ],
+    },
   ],
-  // projects: [
-  //   {
-  //     name: 'Travel',
-  //     url: '#',
-  //     icon: Map,
-  //   },
-  // ],
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>): JSX.Element {
   return (
     <Sidebar collapsible='icon' {...props}>
       <SidebarHeader>
-        <TeamSwitcher teams={data.teams} />
+        <div className='flex items-center justify-center h-16'>
+          <h1 className='text-lg font-bold text-center group-data-[collapsible=icon]:hidden'>
+            Portfolio Hirai
+          </h1>
+          <span className='text-2xl font-bold hidden group-data-[collapsible=icon]:block'>PH</span>
+        </div>
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
-        {/* <NavProjects projects={data.projects} /> */}
       </SidebarContent>
       <SidebarFooter>
         <NavUser />
