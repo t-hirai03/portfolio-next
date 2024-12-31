@@ -3,6 +3,7 @@ import { FaEnvelope, FaGithub } from 'react-icons/fa';
 import { Title } from '@/components/Title';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import Image from 'next/image';
 
 export default function ProfilePage() {
   return (
@@ -56,10 +57,12 @@ export default function ProfilePage() {
               <CardTitle>愛犬</CardTitle>
             </CardHeader>
             <CardContent className='flex justify-center'>
-              <img
+              <Image
                 src='/assets/images/dog.jpg'
                 alt='あずき'
-                className='rounded-lg w-40 h-40 object-cover'
+                width={384}
+                height={512}
+                className='rounded-lg'
               />
             </CardContent>
             <CardFooter>

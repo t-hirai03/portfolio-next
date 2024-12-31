@@ -94,7 +94,7 @@ export const ProjectsTable = () => {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead className='w-[200px]'>サイト名</TableHead>
+            <TableHead className='w-[300px]'>サイト名</TableHead>
             <TableHead>使用技術</TableHead>
             <TableHead>URL</TableHead>
           </TableRow>
