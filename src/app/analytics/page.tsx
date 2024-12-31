@@ -1,6 +1,8 @@
+import type { Metadata } from 'next';
+
 import AnalyticsPage from '@/components/pages/analytics';
 
-export function generateMetadata() {
+export function generateMetadata(): Metadata {
   return {
     title: 'アクセス解析 | ポートフォリオ',
   };

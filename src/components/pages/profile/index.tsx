@@ -1,11 +1,11 @@
+import Image from 'next/image';
 import { FaEnvelope, FaGithub } from 'react-icons/fa';
 
 import { Title } from '@/components/Title';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import Image from 'next/image';
 
-export default function ProfilePage() {
+export default function ProfilePage(): JSX.Element {
   return (
     <div className='bg-background text-foreground'>
       <div className='max-w-7xl mx-auto'>

@@ -88,7 +88,7 @@ const projects: Project[] = [
   },
 ];
 
-export const ProjectsTable = () => {
+export const ProjectsTable = (): JSX.Element => {
   return (
     <div className='min-h-[100vh] flex-1 rounded-xl border p-4 md:min-h-0'>
       <Table>
