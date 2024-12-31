@@ -81,7 +81,7 @@ export default function RootLayout({
               <AppSidebar />
               <SidebarInset>
                 <Header />
-                <div className='p-4 custom-min-height overflow-y-auto'>{children}</div>
+                <div className='p-4 custom-min-height overflow-y-auto pb-12'>{children}</div>
               </SidebarInset>
             </SidebarProvider>
           </ThemeProvider>
