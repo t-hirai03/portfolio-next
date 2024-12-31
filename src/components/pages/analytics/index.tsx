@@ -1,9 +1,11 @@
+import { Metadata } from 'next';
+
 import { BarGraph } from '@/components/Chart/bar';
 import { LineGraph } from '@/components/Chart/line';
 import { View } from '@/components/Chart/view';
 import { Title } from '@/components/Title';
 
-export function generateMetadata() {
+export function generateMetadata(): Metadata {
   return {
     title: 'アクセス解析 | ポートフォリオ',
   };

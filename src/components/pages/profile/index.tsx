@@ -1,10 +1,11 @@
+import Image from 'next/image';
 import { FaEnvelope, FaGithub } from 'react-icons/fa';
 
 import { Title } from '@/components/Title';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 
-export default function ProfilePage() {
+export default function ProfilePage(): JSX.Element {
   return (
     <div className='bg-background text-foreground'>
       <div className='max-w-7xl mx-auto'>
@@ -56,10 +57,12 @@ export default function ProfilePage() {
               <CardTitle>愛犬</CardTitle>
             </CardHeader>
             <CardContent className='flex justify-center'>
-              <img
+              <Image
                 src='/assets/images/dog.jpg'
                 alt='あずき'
-                className='rounded-lg w-40 h-40 object-cover'
+                width={160}
+                height={300}
+                className='rounded-lg'
               />
             </CardContent>
             <CardFooter>

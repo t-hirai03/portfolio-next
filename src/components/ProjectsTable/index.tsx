@@ -88,13 +88,13 @@ const projects: Project[] = [
   },
 ];
 
-export const ProjectsTable = () => {
+export const ProjectsTable = (): JSX.Element => {
   return (
     <div className='min-h-[100vh] flex-1 rounded-xl border p-4 md:min-h-0'>
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead className='w-[200px]'>サイト名</TableHead>
+            <TableHead className='w-[300px]'>サイト名</TableHead>
             <TableHead>使用技術</TableHead>
             <TableHead>URL</TableHead>
           </TableRow>

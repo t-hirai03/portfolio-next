@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 
-export default function Home() {
+export default function Home(): JSX.Element {
   return (
     <div className='relative h-full overflow-hidden'>
       <Image
