@@ -60,8 +60,8 @@ export default function ProfilePage(): JSX.Element {
               <Image
                 src='/assets/images/dog.jpg'
                 alt='あずき'
-                width={384}
-                height={512}
+                width={160}
+                height={300}
                 className='rounded-lg'
               />
             </CardContent>
