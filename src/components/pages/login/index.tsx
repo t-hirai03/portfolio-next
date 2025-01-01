@@ -8,7 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 
 export default function LoginPage(): JSX.Element {
   return (
-    <div className='container flex flex-col items-center justify-center custom-min-height'>
+    <div className='container flex flex-col items-center justify-center h-full'>
       <Card className='w-full max-w-md'>
         <CardHeader className='space-y-1'>
           <CardTitle className='text-2xl text-center'>ログイン</CardTitle>
