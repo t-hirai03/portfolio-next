@@ -7,12 +7,15 @@ export const useProjects = () => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_MICROCMS_API_BASE_URL}/projects`, {
-          headers: {
-            'X-MICROCMS-API-KEY': process.env.NEXT_PUBLIC_MICROCMS_API_KEY || '',
-            'Content-Type': 'application/json',
-          },
-        });
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_MICROCMS_API_BASE_URL}/projects?limit=20`,
+          {
+            headers: {
+              'X-MICROCMS-API-KEY': process.env.NEXT_PUBLIC_MICROCMS_API_KEY || '',
+              'Content-Type': 'application/json',
+            },
+          }
+        );
         if (!res.ok) {
           throw new Error('Failed to fetch projects');
         }
