@@ -10,7 +10,6 @@ import useProfile from '@/hooks/UseProfile';
 
 export default function ProfilePage(): JSX.Element {
   const { profile } = useProfile();
-  console.log(profile);
 
   return (
     <div className='bg-background text-foreground'>
@@ -48,77 +47,50 @@ export default function ProfilePage(): JSX.Element {
               </div>
             </CardContent>
           </Card>
-
-          {/* スキル */}
           <Card className='sm:col-span-2 lg:col-span-1'>
             <CardHeader>
-              <CardTitle>愛犬</CardTitle>
+              <CardTitle>{profile?.free_title}</CardTitle>
             </CardHeader>
             <CardContent className='flex justify-center'>
-              <Image
-                src='/assets/images/dog.jpg'
-                alt='あずき'
-                width={160}
-                height={300}
-                className='rounded-lg'
-              />
+              {profile?.free_image?.url && (
+                <Image
+                  src={profile?.free_image?.url}
+                  alt=''
+                  width={160}
+                  height={300}
+                  className='rounded-lg'
+                />
+              )}
             </CardContent>
             <CardFooter>
-              <p className='text-muted-foreground text-center mt-2'>あずき</p>
+              <p className='text-muted-foreground text-center mt-2'>{profile?.free_text}</p>
             </CardFooter>
           </Card>
-
-          {/* 経歴 */}
           <Card className='sm:col-span-2'>
             <CardHeader>
               <CardTitle>経歴</CardTitle>
             </CardHeader>
             <CardContent className='space-y-2 sm:space-y-4'>
-              {[
-                {
-                  title: '事業会社のフロントエンドエンジニア',
-                  company: '株式会社シーラ',
-                  period: '2024年 - 現在',
-                  description:
-                    'Next.jsとTypeScriptを使用したウェブアプリケーション開発、Railsとの連携、APIの実装',
-                },
-                {
-                  title: 'Web制作会社',
-                  company: 'ジェイクール株式会社',
-                  period: '2022年 - 2023年',
-                  description: 'Webサイト制作、WordPressのカスタマイズ',
-                },
-                {
-                  title: 'SES',
-                  company: 'パワーシステム株式会社',
-                  period: '2018年 - 2021年',
-                  description: '福井県民衛生プロジェクトのウェブアプリケーション開発。',
-                },
-              ].map((job, index) => (
-                <div key={index} className='border-l-2 border-primary pl-4 pb-4'>
+              {profile?.career?.map((job) => (
+                <div key={job.title} className='border-l-2 border-primary pl-4 pb-4'>
                   <h3 className='font-semibold'>{job.title}</h3>
                   <p className='text-sm text-muted-foreground mt-1'>
-                    {job.company} | {job.period}
+                    {job.Industry} | {job.period_of_employment}
                   </p>
-                  <p className='mt-2'>{job.description}</p>
+                  <p className='mt-2'>{job.business_content}</p>
                 </div>
               ))}
             </CardContent>
           </Card>
-
-          {/* プロジェクト */}
           <Card className='sm:col-span-2 lg:col-span-1'>
             <CardHeader>
               <CardTitle>プロジェクト</CardTitle>
             </CardHeader>
             <CardContent className='space-y-4'>
-              {[
-                { name: '利回りくん', tech: 'Next.js, Rails, TypeScript, SQL' },
-                { name: '福井県民衛生プロジェクト', tech: 'Vue.js,Java' },
-              ].map((project, index) => (
-                <div key={index} className='border-l-2 border-secondary pl-4 py-2'>
-                  <h3 className='font-semibold'>{project.name}</h3>
-                  <p className='text-sm text-muted-foreground mt-2'>{project.tech}</p>
+              {profile?.projects?.map((project) => (
+                <div key={project.title} className='border-l-2 border-secondary pl-4 py-2'>
+                  <h3 className='font-semibold'>{project.title}</h3>
+                  <p className='text-sm text-muted-foreground mt-2'>{project.technology}</p>
                 </div>
               ))}
             </CardContent>
