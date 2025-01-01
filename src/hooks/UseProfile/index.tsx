@@ -1,7 +1,8 @@
 'use client';
 
-import { Profile, ProfileResponse } from '@/types/profile';
 import { useEffect, useState } from 'react';
+
+import { Profile, ProfileResponse } from '@/types/profile';
 
 const useProfile = () => {
   // プロフィールデータの状態管理
