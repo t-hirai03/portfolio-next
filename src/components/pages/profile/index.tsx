@@ -1,11 +1,17 @@
+'use client';
+
 import Image from 'next/image';
 import { FaEnvelope, FaGithub } from 'react-icons/fa';
 
 import { Title } from '@/components/Title';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import useProfile from '@/hooks/UseProfile';
 
 export default function ProfilePage(): JSX.Element {
+  const { profile } = useProfile();
+  console.log(profile);
+
   return (
     <div className='bg-background text-foreground'>
       <div className='max-w-7xl mx-auto'>
@@ -14,37 +20,29 @@ export default function ProfilePage(): JSX.Element {
           <Card className='sm:col-span-2'>
             <CardHeader className='flex flex-col sm:flex-row items-center sm:items-start space-y-4 sm:space-y-0 sm:space-x-4'>
               <Avatar className='h-20 w-20'>
-                <AvatarImage
-                  src='/assets/images/hirai.jpg?height=80&width=80'
-                  alt='プロフィール画像'
-                />
+                <AvatarImage src={profile?.icon.url} alt={profile?.name} />
                 <AvatarFallback>平井</AvatarFallback>
               </Avatar>
               <div className='text-center sm:text-left'>
-                <CardTitle className='text-xl sm:text-2xl'>平井 隆裕</CardTitle>
-                <p className='text-muted-foreground'>ひらい たかひろ</p>
-                <p className='text-muted-foreground'>1995年9月23日生まれ</p>
+                <CardTitle className='text-xl sm:text-2xl'>{profile?.name}</CardTitle>
+                <p className='text-muted-foreground'>{profile?.furigana}</p>
+                <p className='text-muted-foreground'>{profile?.date_of_birth}</p>
               </div>
             </CardHeader>
             <CardContent>
               <p className='mb-4 text-sm sm:text-base'>
-                5年間地元の福井県でSESとWEB制作を経験し、2024年から東京の企業でフロントエンドエンジニアとして働いています。
-                <br />
-                最近はNext.jsとTypeScriptを使用したウェブアプリケーション開発とAIに興味があります。
-                <br />
-                休日はよく食べに行きます。焼酎よく飲みます。
+                {profile?.self_introduction?.split('\n').map((line, index) => (
+                  <span key={index}>
+                    {line}
+                    <br />
+                  </span>
+                ))}
               </p>
               <div className='flex justify-center sm:justify-start space-x-4'>
-                <a
-                  href='https://github.com/t-hirai03'
-                  className='text-muted-foreground hover:text-foreground'
-                >
+                <a href={profile?.github} className='text-muted-foreground hover:text-foreground'>
                   <FaGithub className='h-6 w-6' />
                 </a>
-                <a
-                  href='mailto:hiraitakahiro0923@gmail.com'
-                  className='text-muted-foreground hover:text-foreground'
-                >
+                <a href={profile?.email} className='text-muted-foreground hover:text-foreground'>
                   <FaEnvelope className='h-6 w-6' />
                 </a>
               </div>
