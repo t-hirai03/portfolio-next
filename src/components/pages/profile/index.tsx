@@ -56,9 +56,9 @@ export default function ProfilePage(): JSX.Element {
                 <Image
                   src={profile?.free_image?.url}
                   alt=''
-                  width={160}
-                  height={300}
-                  className='rounded-lg'
+                  width={profile?.free_image?.width}
+                  height={profile?.free_image?.height}
+                  className='rounded-lg w-full max-h-[10rem] object-contain'
                 />
               )}
             </CardContent>
