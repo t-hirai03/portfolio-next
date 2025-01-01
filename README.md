@@ -3,10 +3,17 @@
 ## 使用技術
 
 - Next.js
+  - next-auth
+  - ESLint
+  - next-sitemap
 - TypeScript
-- shadncn ui
+- shadcn/ui
 - Vercel
-- GA4 API
+- GA4
+  - Google Tag Manager (GTM)と連携し、カスタムディメンションでユーザー情報を取得
+  - APIを通じてGAの分析データを取得し、グラフで表示
+- microCMS
+  - プロフィールと制作実績のコンテンツをmicroCMSのAPIから取得して表示 
 
 ## URL
 
